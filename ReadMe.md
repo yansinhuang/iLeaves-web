@@ -57,3 +57,40 @@ app.use('/shop/', shop);
 
 ## 關於測試
 在[PostMan](https://www.getpostman.com/)上我新增了一組Team Workspace叫做`ezBot`，可以透過這個[連結](https://app.getpostman.com/join-team?invite_code=6cd450a1d6f33470e529b29e7f67c894&ws=1cee1900-5f58-4442-9912-676ec3469e0b)加入至你的Postman Collection，未來所有的API都會在裡面建立sample。
+
+## 串接LINE Messaging API
+坊間大部分的Bot架構都是直接使用[linebot](https://www.npmjs.com/package/linebot)或是[bottender](https://bottender.js.org/)這些套件框架，但在我們的架構應用上無法正確執行，主要原因如下：
+
+> 他們的套件皆假設運行於一個httpServer，所以**假設port是由自己控制的**，但這在functions框架下，是不成立的。
+ 
+然而，Line原本就有提供[LINE Messaging API](https://developers.line.biz/en/reference/messaging-api)讓開發者使用，我們只需要在代碼中實作一個Http用戶端即可。
+
+### 實作Echo Bot
+在`git:f3b35b2`這個實作中，我們新增一組`message`的API，並在裡面實作`/linewebhook`的endPoint，這組是提供給Line設定中`Webhook URL`使用的。換句話說，`/linewebhook`這個function會是所有訊息進來時的入口。
+
+首先，我們來實作[reply message](https://developers.line.biz/en/reference/messaging-api/#send-reply-message)，根據文件中的[定義](https://developers.line.biz/en/reference/messaging-api/#message-event)，我們在接受到一則文字訊息時可能會長這樣：
+```
+events: [
+    {
+        type: 'message',
+        replyToken: '5c47a256407c43d1858d5d26432c9ea4',
+        source: {
+            userId: 'U134a3db5e934bb60d5543d1e7e96bced',
+            type: 'user'
+        },
+        timestamp: 1563176888352,
+        message: {
+            type: 'text', 
+            id: '10216314764116', 
+            text: 'Hi'
+        }
+    }
+]
+```
+這份代碼目前做的事就是收到這個訊息後，我們先解析出訊息內容，然後把`message.text`再原封不動的透過`Message API`送出去。
+
+### 外部API呼叫
+在這邊提醒一下，如果Firebase Cloud Functions有呼叫外部API，必須升級該專案至Blaze方案，才能夠正常呼叫喔！不然會出現以下錯誤
+```
+'request to https://api.line.me/v2/bot/message/reply failed, reason: getaddrinfo EAI_AGAIN api.line.me:443'
+```

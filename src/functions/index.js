@@ -3,6 +3,7 @@ import express from "express";
 import bodyParser from 'body-parser';
 import Config from './config';
 
+import message from './message';
 import test from './test';
 
 // Initialize http-server
@@ -18,6 +19,7 @@ exports.api = functions.https.onRequest(app);
 
 // Binding path
 app.use('/test/', test);
+app.use('/message/', message);
 
 // Routes
 app.get('*', (req, res) => {
