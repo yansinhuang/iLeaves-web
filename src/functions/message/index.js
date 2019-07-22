@@ -19,7 +19,7 @@ router.post('/sendMulticast', async(req, res) => {
     try {
         var event = req.body;
         line.sendMulticast(event);
-        return res.send('=====> success sendMulticast');
+        return res.send('success');
     } catch (err) {
         return res.status(406).send({
             message: `${err.message}`
