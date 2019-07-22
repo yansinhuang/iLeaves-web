@@ -21,6 +21,22 @@ const replyMessage = async (event) => {
     httpClient.post(uri, body, 'json', LINE_HEADER);
 };
 
+const sendMulticast = async (event) => {
+    console.log(event.to);
+    var body = {
+        to: event.to,
+        messages: [
+            {
+                type: "text",
+                text: event.messages[0].text
+            }
+        ]
+    };
+    var uri = Config.line.url + '/multicast';
+    httpClient.post(uri, body, 'json', LINE_HEADER);
+};
+
 module.exports = {
-    replyMessage
+    replyMessage,
+    sendMulticast
 };
