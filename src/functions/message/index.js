@@ -4,11 +4,10 @@ import line from './lineUtils';
 const router = express.Router();
 
 router.post('/linewebhook', async(req, res) => {
-    console.log(req.body.events[0])
     try {
         var event = req.body.events[0];
         line.replyMessage(event);
-        return res.send('=====> success linewebhook');
+        return res.send('success');
     } catch (err) {
         return res.status(400).send({
             message: `${err.message}`

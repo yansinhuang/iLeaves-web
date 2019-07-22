@@ -21,8 +21,8 @@ const replyMessage = async (event) => {
     httpClient.post(uri, body, 'json', LINE_HEADER);
 };
 
+
 const sendMulticast = async (event) => {
-    console.log(event.to);
     var body = {
         to: event.to,
         messages: [
