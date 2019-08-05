@@ -36,7 +36,18 @@ const sendMulticast = async (event) => {
     httpClient.post(uri, body, 'json', LINE_HEADER);
 };
 
+const switchMenuTo = async (event, richmenuId) => {
+    var userId = event.source.userId;
+    var body = {};
+    var header = {
+            Authorization: `Bearer ${Config.line.accessToken}`
+        };
+    var uri = `https://api.line.me/v2/bot/user/${userId}/richmenu/${richmenuId}`;
+    httpClient.post(uri, body, 'json', header);
+};
+
 module.exports = {
     replyMessage,
-    sendMulticast
+    sendMulticast,
+    switchMenuTo
 };
