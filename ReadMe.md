@@ -94,3 +94,35 @@ events: [
 ```
 'request to https://api.line.me/v2/bot/message/reply failed, reason: getaddrinfo EAI_AGAIN api.line.me:443'
 ```
+
+### 建立商家帳號
+在`git:9691103`這個實作中，我們開始實作firestore相關的功能，先以公司/組織（在這邊我們命名為`account`）這個物件為出發點，建立相關的CRUD API。
+
+首先，打通一條`account`的API路由，所以架構會改為以下這樣：
+```
+root
+|- (dist)
+|- (src)
+|  |- (functions)
+|     |- (account)
+|     |- (config)
+|     |- (db)
+|     |- (test)
+|     |- (utils)
+|     |- .babelrc
+|     |- index.js
+|- firebase.json
+|- .firebaserc
+|- package.json
+|- ReadMe.md
+```
+與[前次定義的架構](#%E7%AC%AC%E4%B8%80%E6%94%AFAPI)相比，我們還多了`db`、`utils`兩個資料夾，這邊簡單說明一下定義：
+- db : 接下來操作database(firestore)相關的函式都會實作在裡面，依物件類型分檔。
+- utils : 所有helper或是extension類型的函式都放在這，要使用時須個別引用。
+
+接著，我們在`\account\index.js`中實作了`/create`以及`/update/:ubn`兩隻API，資料流的路徑如下
+1. `\account\index.js`: API入口
+2. `\account\account.js`: account相關邏輯處理
+3. `\db\account.js`: account相關資料庫處理
+
+在這個commit裡，我們實作了CRUD中的*Create*以及*Update*，並且在*Update*中做了partial update的功能；接下來，可以用這樣的架構去實作每一個物件的資料操作。
