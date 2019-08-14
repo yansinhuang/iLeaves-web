@@ -1,10 +1,17 @@
 import * as functions from "firebase-functions";
+import * as admin from 'firebase-admin';
 import express from "express";
 import bodyParser from 'body-parser';
 import Config from './config';
 
 import message from './message';
+import account from './account';
 import test from './test';
+
+// Initialize firebase
+admin.initializeApp({
+    databaseURL: Config.firebase.databaseURL
+});
 
 // Initialize http-server
 const app = new express();
@@ -20,6 +27,7 @@ exports.api = functions.https.onRequest(app);
 // Binding path
 app.use('/test/', test);
 app.use('/message/', message);
+app.use('/account/', account);
 
 // Routes
 app.get('*', (req, res) => {
