@@ -1,20 +1,49 @@
 {
-  "functions": {
-    "source": "dist/functions",
-    "predeploy": []
-  },
-  "hosting": {
-    "public": "public",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
-    ]
-  }
+  "hosting": [
+    {
+      "target": "dev",
+      "public": "./app/out",
+      "rewrites": [ {
+        "source": "/createLeave",
+        "destination": "/createLeave.html"
+      },{
+        "source": "/signIn",
+        "destination": "/signIn.html"
+      },{
+        "source": "/viewLeave",
+        "destination": "/viewLeave.html"
+      },{
+        "source": "/reject_sub",
+        "destination": "/reject_sub.html"
+      },{
+        "source": "/reject_super",
+        "destination": "/reject_super.html"
+      },{
+        "source": "/viewSign",
+        "destination": "/viewSign.html"
+      },{
+        "source": "/signOut",
+        "destination": "/signOut.html"
+      },{
+        "source": "/resetPassword",
+        "destination": "/resetPassword.html"
+      },{
+        "source": "/punchIn",
+        "destination": "/punchIn.html"
+      },{
+        "source": "/punchOut",
+        "destination": "/punchOut.html"
+      },{
+        "source": "/viewPunch",
+        "destination": "/viewPunch.html"
+      }],
+      "headers": [{
+        "source" : "**",
+        "headers" : [{
+          "key" : "Access-Control-Allow-Origin",
+          "value" : "*"
+        }]
+      }]
+    }
+]
 }
