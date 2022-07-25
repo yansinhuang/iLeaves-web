@@ -1,5 +1,9 @@
-# Firebase Web Codelab - Start code
+**iLeaves** is a human resource management application based on LINE, which is the most popular mobile messaging app in Taiwan. This application was developed using **ReactJS** and **NodeJS** and connected with LINE through the **LINE Messaging API**. Users can access all features via LINE without downloading an additional app. <br>
+<br>
+An employee can manage their leaves and clock in their attendance with GPS location. A supervisor can supervise their team members' leave applications and track their attendance. iLeaves will notify related persons via LINE when necessary (e.g. when a leave request is made or a substitute employee is assigned).
 
-This folder contains the starting code for the [Firebase: Build a Real Time Web Chat App Codelab](https://codelabs.developers.google.com/codelabs/firebase-web/).
+This repo contains only the front-end part of this project. For back-end part, please see [here](https://github.com/yansinhuang/iLeaves).
 
-If you'd like to jump directly to the end and see the finished code head to the [web](../web) directory.
+More details about this project can be found here:<br>
+* [iLeaves Demo Slides](https://github.com/yansinhuang/iLeaves/blob/master/iLeaves_Demo_Slides.pdf)<br>
+* [iLeaves Wiki](https://github.com/yansinhuang/iLeaves/wiki)
